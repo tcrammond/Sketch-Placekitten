@@ -8,33 +8,40 @@ var onRun = function (context) {
     artboard = page.currentArtboard();
     selection = context.selection;
     var selection = context.selection;
+    var app = NSApplication.sharedApplication();
 
-    for(var i = 0; i < [selection count]; i++){
-        log("entro")
-
+    for (var i = 0; i < [selection count]; i++) {
         var layer = selection[i];
-
-        //log(layer.frame());
         var layerSizes = layer.frame();
-        log([layerSizes width]);
 
-        if([layer class] == MSShapeGroup){
-
+        if ([layer class] == MSShapeGroup) {
             var fill = layer.style().fills().firstObject();
 
             try {
-            var imageData = NSImage.alloc().initWithData(get("http://placekitten.com/g/"+Math.max(101, [layerSizes width])+"/"+Math.max(101, [layerSizes height])));
-                        layerStyle = layer.style().fills().firstObject();
-                        layerStyle.setFillType(4);
+                var response = get("http://placekitten.com/g/" + [layerSizes width]) + "/" + [layerSizes height]);
 
-                        var imageCollection = fill.documentData().images();
-                        [fill setPatternImage: imageData collection: imageCollection];
+                // Catch empty responses when Placekitten doesn't support the specified dimensions
+                if (response.toString() == "<>") {
+                    showError();
+                    return;
+                }
 
-                        layerStyle.setPatternFillType(1);
+                var imageData =[[NSImage alloc] initWithData:response];
+                var layerStyle = layer.style().fills().firstObject();
+                layerStyle.setFillType(4);
+
+                var imageCollection = fill.documentData().images();
+                [fill setPatternImage: imageData collection: imageCollection];
+
+                layerStyle.setPatternFillType(1);
             } catch (e) {
-                [app displayDialog:"Sorry, couldn't place a kitten. Maybe Placekitten doesn't support that size."]
+                showError();
             }
         }
+    }
+
+    function showError() {
+        app.displayDialog_withTitle("Sorry, Placekitten didn't have a kitten for dimensions of " + [layerSizes width] + "x" + [layerSizes height], "Error placing kitten")
     }
 
     function get(url) {
