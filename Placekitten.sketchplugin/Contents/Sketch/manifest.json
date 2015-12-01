@@ -1,5 +1,5 @@
 {
-    "name": "Sketch Placekitten",
+    "name": "Placekitten",
     "description" : "A plugin to quickly include pictures of kittens from Placekitten in your Sketch projects",
     "author" : "Tyler Crammond (forked from Manuelle Capacci hello@manuelecapacci.com)",
     "authorEmail" : "tyler.crammond@gmail.com",
@@ -18,7 +18,7 @@
     ],
     "menu" : {
         "items" : [
-            "placekittenit"
+            "Place Kitten"
         ]
     }
 }
