@@ -1,0 +1,24 @@
+{
+    "name": "Sketch Placekitten",
+    "description" : "A plugin to quickly include pictures of kittens from Placekitten in your Sketch projects",
+    "author" : "Tyler Crammond (forked from Manuelle Capacci hello@manuelecapacci.com)",
+    "authorEmail" : "tyler.crammond@gmail.com",
+    "homepage": "https://github.com/tcrammond/Sketch-Placekitten",
+    "version" : "1.0",
+    "identifier" : "com.tcrammond.sketch-placekitten",
+    "compatibleVersion": "3.4",
+    "bundleVersion": "1",
+    "commands" : [
+        {
+            "script" : "placekitten.cocoascript",
+            "shortcut" : "shift cmd u",
+            "name" : "Placekitten It",
+            "identifier" : "placekittenit"
+        }
+    ],
+    "menu" : {
+        "items" : [
+            "placekittenit"
+        ]
+    }
+}
