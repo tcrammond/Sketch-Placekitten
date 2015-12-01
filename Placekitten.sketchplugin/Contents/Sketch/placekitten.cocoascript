@@ -1,4 +1,4 @@
-// Use an image from Unsplash.com (shift command u)
+// Use an image from Placekitten.com (shift command u)
 var onRun = function (context) {
 
     // Global variables
@@ -10,7 +10,6 @@ var onRun = function (context) {
     var selection = context.selection;
 
     for(var i = 0; i < [selection count]; i++){
-
         log("entro")
 
         var layer = selection[i];
@@ -22,7 +21,7 @@ var onRun = function (context) {
         if([layer class] == MSShapeGroup){
 
             var fill = layer.style().fills().firstObject();
-            var imageData = NSImage.alloc().initWithData(get("https://unsplash.it/"+[layerSizes width]+"/"+[layerSizes height]+"?random"));
+            var imageData = NSImage.alloc().initWithData(get("http://placekitten.com/g/"+[layerSizes width]+"/"+[layerSizes height]));
             layerStyle = layer.style().fills().firstObject();
             layerStyle.setFillType(4);
 
@@ -33,14 +32,10 @@ var onRun = function (context) {
         }
     }
 
-
-
-
     function get(url) {
         var request = NSURLRequest.requestWithURL(NSURL.URLWithString(url));
         var response = NSURLConnection.sendSynchronousRequest_returningResponse_error(request, null, null);
         return response;
     }
-
 };
 
